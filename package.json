@@ -1,0 +1,7 @@
+{
+  "name": "try1",
+  "version": "1.0.0",
+  "dependencies": {
+    "mime-types": "^2.1.27"
+  }
+}
