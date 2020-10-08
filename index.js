@@ -10,8 +10,6 @@ http.createServer(function (req, res)
 {
   
   var url =   decodeURI(req.url.toString());
- 
-  
   
   {
     if(url.endsWith("/"))url+="index.html";
