@@ -1,38 +1,21 @@
-
-
 var http = require('http');
 var fs = require('fs');
 var mime = require('mime-types');
-
-
-
 http.createServer(function (req, res) 
 {
-  
   var url =   decodeURI(req.url.toString());
-  
-  {
     if(url.endsWith("/"))url+="index.html";
     url=url.substring(1,url.length);
-    
-    
     fs.stat(url, function(err, stat)
     {
       if(err)
       {
-        var path404="www/errors/404.html";
-        fs.stat(path404, function(err, stat404)
-        {
-          
           var head = {
-             'Content-Length': stat404.size,
-             'Content-Type': mime.lookup(".html")
+             'Content-Type': mime.lookup(".txt")
           };
-          res.writeHead(200, head);
-          fs.createReadStream(path404).pipe(res);
-          
-        });
-        
+          res.writeHead(404, head);
+          res.write('Not found!');
+          res.end();
       }
       else
       {
@@ -66,16 +49,8 @@ http.createServer(function (req, res)
           res.writeHead(200, head);
           fs.createReadStream(url).pipe(res);
         }
-        
-      
       }
     });
-    
-    
-  }
-  
-  
-  
 }).listen(3001);
 
 
