@@ -1,8 +1,24 @@
 var http = require('http');
 var fs = require('fs');
 var mime = require('mime-types');
+
+var head = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "OPTIONS, POST, GET, PUT, PATCH, DELETE",
+        "Access-Control-Max-Age": 2592000, // 30 days
+        "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept, Authorization"
+      };
+
+
 http.createServer(function (req, res) 
 {
+  
+  if (req.method === "OPTIONS") {
+    res.writeHead(204, head);
+    res.end();
+    return;
+  }
+  
   var url =   decodeURI(req.url.toString());
     if(url.endsWith("/"))url+="index.html";
     url=url.substring(1,url.length);
